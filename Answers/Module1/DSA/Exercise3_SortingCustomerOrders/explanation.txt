@@ -1,0 +1,27 @@
+Exercise 3 - Sorting Customer Orders
+=====================================
+
+Objective:
+Sort customer orders by total price to prioritize high-value orders for processing.
+
+Sorting Algorithms Overview:
+- Bubble Sort:    Repeatedly swaps adjacent elements if they are out of order
+- Insertion Sort: Builds a sorted portion one element at a time from left to right
+- Quick Sort:     Picks a pivot, partitions the array, and recursively sorts each half
+- Merge Sort:     Splits the array in half, sorts each half, then merges them back
+
+Bubble Sort Time Complexity:
+- Best:    O(n) if already sorted (with optimization)
+- Average: O(n^2)
+- Worst:   O(n^2)
+
+Quick Sort Time Complexity:
+- Best:    O(n log n)
+- Average: O(n log n)
+- Worst:   O(n^2) - rare, occurs with bad pivot selection on already sorted data
+
+Why Quick Sort is preferred:
+Quick Sort is significantly faster in practice due to better cache performance and
+lower constant factors. For 1000 orders, Bubble Sort could take ~1,000,000 operations
+while Quick Sort typically needs around 10,000. For real e-commerce platforms handling
+thousands of daily orders, Quick Sort is the practical and scalable choice.
