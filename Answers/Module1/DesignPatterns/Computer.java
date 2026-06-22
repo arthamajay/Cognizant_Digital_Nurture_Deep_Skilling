@@ -1,0 +1,40 @@
+public class Computer {
+    private String cpu;
+    private int ram;
+    private int storage;
+
+    private Computer(Builder builder) {
+        cpu=builder.cpu;
+        ram=builder.ram;
+        storage=builder.storage;
+    }
+
+    public void display() {
+        System.out.println("CPU: "+cpu+" | RAM: "+ram+"GB | Storage: "+storage+"GB");
+    }
+
+    public static class Builder {
+        private String cpu;
+        private int ram;
+        private int storage;
+
+        public Builder setCpu(String cpu) {
+            this.cpu=cpu;
+            return this;
+        }
+
+        public Builder setRam(int ram) {
+            this.ram=ram;
+            return this;
+        }
+
+        public Builder setStorage(int storage) {
+            this.storage=storage;
+            return this;
+        }
+
+        public Computer build() {
+            return new Computer(this);
+        }
+    }
+}
