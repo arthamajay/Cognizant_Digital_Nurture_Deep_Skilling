@@ -1,36 +1,32 @@
 DECLARE
-   CURSOR c_loans IS
-      SELECT LoanID,
-             InterestRate
-      FROM Loans;
+    CURSOR C_LOANS IS
+    SELECT
+        LOANID,
+        INTERESTRATE
+    FROM
+        LOANS;
 
-   v_loan_id Loans.LoanID%TYPE;
-   v_rate    Loans.InterestRate%TYPE;
-
+    V_LOAN_ID LOANS.LOANID%TYPE;
+    V_RATE    LOANS.INTERESTRATE%TYPE;
 BEGIN
+    OPEN C_LOANS;
+    LOOP
+        FETCH C_LOANS INTO
+            V_LOAN_ID,
+            V_RATE;
+        EXIT WHEN C_LOANS%NOTFOUND;
+        IF V_RATE < 10 THEN
+            UPDATE LOANS
+            SET
+                INTERESTRATE = INTERESTRATE + 0.5
+            WHERE
+                LOANID = V_LOAN_ID;
 
-   OPEN c_loans;
+        END IF;
 
-   LOOP
+    END LOOP;
 
-      FETCH c_loans
-      INTO v_loan_id,v_rate;
-
-      EXIT WHEN c_loans%NOTFOUND;
-
-      IF v_rate < 10 THEN
-
-         UPDATE Loans
-         SET InterestRate = InterestRate + 0.5
-         WHERE LoanID = v_loan_id;
-
-      END IF;
-
-   END LOOP;
-
-   CLOSE c_loans;
-
-   COMMIT;
-
+    CLOSE C_LOANS;
+    COMMIT;
 END;
 /
