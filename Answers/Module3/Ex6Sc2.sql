@@ -1,0 +1,25 @@
+DECLARE
+    CURSOR STMT IS
+    SELECT
+        ACCOUNTID
+    FROM
+        ACCOUNTS;
+
+    ACC_ID ACCOUNTS.ID%TYPE;
+BEGIN
+    OPEN STMT;
+    LOOP
+        FETCH STMT INTO ACC_ID;
+        EXIT WHEN STMT%NOTFOUND;
+        UPDATE ACCOUNTS
+        SET
+            BALANCE = BALANCE - 500
+        WHERE
+            ACCOUNTID = ACC_ID;
+
+    END LOOP;
+
+    CLOSE STMT;
+    COMMIT;
+END;
+/

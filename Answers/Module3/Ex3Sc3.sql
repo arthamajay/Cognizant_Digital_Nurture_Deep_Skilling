@@ -1,0 +1,40 @@
+CREATE OR REPLACE PROCEDURE TRANSFERFUNDS (
+    P_FROM   IN NUMBER,
+    P_TO     IN NUMBER,
+    P_AMOUNT IN NUMBER
+) AS
+    V_BALANCE NUMBER;
+BEGIN
+    SELECT
+        BALANCE
+    INTO V_BALANCE
+    FROM
+        ACCOUNTS
+    WHERE
+        ACCOUNTID = P_FROM;
+
+    IF ( V_BALANCE >= P_AMOUNT ) THEN
+        UPDATE ACCOUNTS
+        SET
+            BALANCE = BALANCE - P_AMOUNT
+        WHERE
+            ACCOUNTID = P_FROM;
+
+        UPDATE ACCOUNTS
+        SET
+            BALANCE = BALANCE + P_AMOUNT
+        WHERE
+            ACCOUNTID = P_TO;
+
+        COMMIT;
+        DBMS_OUTPUT.PUT_LINE('Transfer Successful');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('insufficent ');
+        ROLLBACK;
+    END IF;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        ROLLBACK;
+END;
+/
