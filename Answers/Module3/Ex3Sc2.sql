@@ -1,13 +1,11 @@
-CREATE OR REPLACE PROCEDURE UPDATEEMPLOYEEBONUS (
-    BONUS       IN NUMBER,
-    PDEPARTMENT IN VARCHAR2
-) AS
-BEGIN
-    UPDATE EMPLOYEES
-    SET
-        SALARY = SALARY + ( SALARY * BONUS / 100 )
-    WHERE
-        DEPARTMENT = PDEPARTMENT;
-
+create or replace PROCEDURE UpdateEmployeeBonus(Dept in VARCHAR2,bonus in NUMBER) as 
+begin
+    update employees 
+    set salary=salary+(bonus*salary/100)
+    where department=dept;
 END;
 /
+
+begin 
+    UpdateEmployeeBonus('Finance',10);
+END;
